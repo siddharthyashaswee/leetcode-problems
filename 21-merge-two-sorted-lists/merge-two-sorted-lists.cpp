@@ -13,7 +13,9 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
 
+        ListNode* list1_ptr = list1;
         ListNode* list1_prev_ptr = nullptr;
+        ListNode* list2_ptr = list2;
         ListNode* list2_next_ptr = nullptr;
         ListNode* start_ptr = nullptr;
 
@@ -26,23 +28,23 @@ public:
         else start_ptr = list1;
 
 
-        while(list2 != nullptr){
-            if(list1!=nullptr){
-                if(list2->val <= list1->val){ // insert because list2 value is smaller/equal
-                    list2_next_ptr = list2->next; //save next pointer
+        while(list2_ptr != nullptr){
+            if(list1_ptr!=nullptr){
+                if(list2_ptr->val <= list1_ptr->val){ // insert because list2 value is smaller/equal
+                    list2_next_ptr = list2_ptr->next; //save next pointer
                     if(list1_prev_ptr != nullptr){
-                        list1_prev_ptr->next = list2; //attach tail and move the prev reference
+                        list1_prev_ptr->next = list2_ptr; //attach tail and move the prev reference
                     }
-                    list1_prev_ptr = list2;
-                    list2->next = list1; //dereference
-                    list2 = list2_next_ptr; //move to next entry in list2
+                    list1_prev_ptr = list2_ptr;
+                    list2_ptr->next = list1_ptr; //dereference
+                    list2_ptr = list2_next_ptr; //move to next entry in list2
                     
                 }else{
-                    list1_prev_ptr = list1;
-                    list1 = list1->next;
+                    list1_prev_ptr = list1_ptr;
+                    list1_ptr = list1_ptr->next;
                 }
             }else{ //list 1 is empty, append remaining list 2
-                list1_prev_ptr->next = list2;
+                list1_prev_ptr->next = list2_ptr;
                 break;
             }
         }
